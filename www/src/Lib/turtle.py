@@ -853,7 +853,9 @@ class TPen:
         """
         if width is None:
             return self._pensize
-        width *= __turtle_distance_unit
+        width = int(width * __turtle_distance_unit)
+        if width < 1:
+            width = 1
         self.pen(pensize=width)
     width = pensize
 
