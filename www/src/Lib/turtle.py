@@ -853,6 +853,7 @@ class TPen:
         """
         if width is None:
             return self._pensize
+        width *= __turtle_distance_unit
         self.pen(pensize=width)
     width = pensize
 
@@ -1288,6 +1289,9 @@ class Turtle(TPen, TNavigator):
         """
         if size is None:
             size = max(self._pensize + 4, 2 * self._pensize)
+
+        size *= __turtle_distance_unit
+        
         if color is None:
             color = self._pencolor
         item = self.screen._dot((self._x, self._y), size, color=color)
