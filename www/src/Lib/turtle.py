@@ -63,6 +63,19 @@ _CFG = {
 
 _cfg_copy = _CFG.copy()
 
+def __default_unsuported_method_callback(function_name, *args, **kwargs):
+    pass
+
+__turtle_distance_unit = 1.0
+__unsuported_method_callback = __default_unsuported_method_callback
+
+def set_turtle_distance_unit(unit):
+    global __turtle_distance_unit
+    __turtle_distance_unit = unit
+
+def set_turtle_unsuported_method_callback(callback):
+    global __unsuported_method_callback
+    __unsuported_method_callback = callback
 
 def set_defaults(**params):
     """Allows to override defaults."""
@@ -466,87 +479,115 @@ class Screen(metaclass=Singleton):
 
     def addshape(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.addshape() is not implemented.\n")
+        __unsuported_method_callback('addshape', *args, **kwargs)
 
     def bgpic(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.bgpic() is not implemented.\n")
+        __unsuported_method_callback('bgpic', *args, **kwargs)
 
     def bye(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.bye() is not implemented.\n")
+        __unsuported_method_callback('bye', *args, **kwargs)
 
     def clearscreen(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.clearscreen() is not implemented.\n")
+        __unsuported_method_callback('clearscreen', *args, **kwargs)
 
     def colormode(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.colormode() is not implemented.\n")
+        __unsuported_method_callback('colormode', *args, **kwargs)
 
     def delay(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.delay() is not implemented.\n")
+        __unsuported_method_callback('delay', *args, **kwargs)
 
     def exitonclick(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.exitonclick() is not implemented.\n")
+        __unsuported_method_callback('exitonclick', *args, **kwargs)
 
     def getcanvas(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.getcanvas() is not implemented.\n")
+        __unsuported_method_callback('getcanvas', *args, **kwargs)
 
     def getshapes(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.getshapes() is not implemented.\n")
+        __unsuported_method_callback('getshapes', *args, **kwargs)
 
     def addshape(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.addshape() is not implemented.\n")
+        __unsuported_method_callback('addshape', *args, **kwargs)
 
     def listen(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.listen() is not implemented.\n")
+        __unsuported_method_callback('listen', *args, **kwargs)
 
     def mainloop(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.mainloop() is not implemented.\n")
+        __unsuported_method_callback('mainloop', *args, **kwargs)
 
     def numinput(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.numinput() is not implemented.\n")
+        __unsuported_method_callback('numinput', *args, **kwargs)
 
     def onkey(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.onkey() is not implemented.\n")
+        __unsuported_method_callback('onkey', *args, **kwargs)
 
     def onkeypress(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.onkeypress() is not implemented.\n")
+        __unsuported_method_callback('onkeypress', *args, **kwargs)
 
     def onkeyrelease(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.onkeyrelease() is not implemented.\n")
+        __unsuported_method_callback('onkeyrelease', *args, **kwargs)
 
     def onscreenclick(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.onscreenclick() is not implemented.\n")
+        __unsuported_method_callback('onscreenclick', *args, **kwargs)
 
     def ontimer(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.ontimer() is not implemented.\n")
+        __unsuported_method_callback('ontimer', *args, **kwargs)
 
     def register_shape(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.register_shape() is not implemented.\n")
+        __unsuported_method_callback('register_shape', *args, **kwargs)
 
     def resetscreen(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.resetscreen() is not implemented.\n")
+        __unsuported_method_callback('resetscreen', *args, **kwargs)
 
     def screensize(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.screensize() is not implemented.\n")
+        __unsuported_method_callback('screensize', *args, **kwargs)
 
     def setup(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.setup() is not implemented.\n")
+        __unsuported_method_callback('setup', *args, **kwargs)
 
     def textinput(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.textinput() is not implemented.\n")
+        __unsuported_method_callback('textinput', *args, **kwargs)
 
     def title(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.title() is not implemented.\n")
+        __unsuported_method_callback('title', *args, **kwargs)
 
     def tracer(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.tracer() is not implemented.\n")
+        __unsuported_method_callback('tracer', *args, **kwargs)
 
     def update(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.update() is not implemented.\n")
+        __unsuported_method_callback('update', *args, **kwargs)
 
     def window_height(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.window_height() is not implemented.\n")
+        __unsuported_method_callback('window_height', *args, **kwargs)
 
     def window_width(self, *args, **kwargs):
         sys.stderr.write("Warning: Screen.window_width() is not implemented.\n")
+        __unsuported_method_callback('window_width', *args, **kwargs)
 
 
 class TNavigator:
@@ -623,6 +664,8 @@ class TNavigator:
     def forward(self, distance):
         """Move the turtle forward by the specified distance.
         """
+        distance *= __turtle_distance_unit
+
         x1 = distance * cos(self._angle * self.degree_to_radians)
         y1 = distance * sin(self._angle * self.degree_to_radians)
         self._distance = distance
@@ -632,6 +675,8 @@ class TNavigator:
     def back(self, distance):
         """Move the turtle backward by distance.
         """
+        distance *= __turtle_distance_unit
+
         x1 = -distance * cos(self._angle * self.degree_to_radians)
         y1 = -distance * sin(self._angle * self.degree_to_radians)
         self._distance = distance
@@ -1081,6 +1126,7 @@ class Turtle(TPen, TNavigator):
 
     def clear(self):
         sys.stderr.write("Warning: Turtle.clear() is not implemented.\n")
+        __unsuported_method_callback('clear')
 
     def shape(self, name=None):
         """Set turtle shape to shape with given name
@@ -1101,49 +1147,64 @@ class Turtle(TPen, TNavigator):
 
     def clearstamp(self, *args, **kwargs):
         sys.stderr.write("Warning: Turtle.clearstamp() is not implemented.\n")
+        __unsuported_method_callback('clearstamp', *args, **kwargs)
 
     def clearstamps(self, *args, **kwargs):
         sys.stderr.write("Warning: Turtle.clearstamps() is not implemented.\n")
+        __unsuported_method_callback('clearstamps', *args, **kwargs)
 
     def onclick(self, *args, **kwargs):
         sys.stderr.write("Warning: Turtle.onclick() is not implemented.\n")
+        __unsuported_method_callback('onclick', *args, **kwargs)
 
     def ondrag(self, *args, **kwargs):
         sys.stderr.write("Warning: Turtle.ondrag() is not implemented.\n")
+        __unsuported_method_callback('ondrag', *args, **kwargs)
 
     def onrelease(self, *args, **kwargs):
         sys.stderr.write("Warning: Turtle.onrelease() is not implemented.\n")
+        __unsuported_method_callback('onrelease', *args, **kwargs)
 
     def undo(self, *args, **kwargs):
         sys.stderr.write("Warning: Turtle.undo() is not implemented.\n")
+        __unsuported_method_callback('undo', *args, **kwargs)
 
     def setundobuffer(self, *args, **kwargs):
         sys.stderr.write("Warning: Turtle.setundobuffer() is not implemented.\n")
+        __unsuported_method_callback('setundobuffer', *args, **kwargs)
 
     def undobufferentries(self, *args, **kwargs):
         sys.stderr.write("Warning: Turtle.undobufferentries() is not implemented.\n")
+        __unsuported_method_callback('undobufferentries', *args, **kwargs)
 
     def shapesize(self, *args, **kwargs):
         sys.stderr.write("Warning: Turtle.shapesize() is not implemented.\n")
+        __unsuported_method_callback('shapesize', *args, **kwargs)
     turtlesize = shapesize
 
     def shearfactor(self, shear=None):
         sys.stderr.write("Warning: Turtle.shearfactor() is not implemented.\n")
+        __unsuported_method_callback('shearfactor', shear)
 
     def settiltangle(self, angle):
         sys.stderr.write("Warning: Turtle.settiltangle() is not implemented.\n")
+        __unsuported_method_callback('settiltangle', angle)
 
     def tiltangle(self, angle=None):
         sys.stderr.write("Warning: Turtle.tiltangle() is not implemented.\n")
+        __unsuported_method_callback('tiltangle', angle)
 
     def tilt(self, angle):
         sys.stderr.write("Warning: Turtle.tilt() is not implemented.\n")
+        __unsuported_method_callback('tilt', angle)
 
     def shapetransform(self, t11=None, t12=None, t21=None, t22=None):
         sys.stderr.write("Warning: Turtle.shapetransform() is not implemented.\n")
+        __unsuported_method_callback('shapetransform', t11, t12, t21, t22)
 
     def get_shapepoly(self):
         sys.stderr.write("Warning: Turtle.get_shapepoly() is not implemented.\n")
+        __unsuported_method_callback('get_shapepoly')
 
     def _goto(self, x, y):
         """Move the pen to the point end, thereby drawing a line
