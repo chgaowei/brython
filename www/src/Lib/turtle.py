@@ -482,7 +482,7 @@ class Screen(metaclass=Singleton):
         __unsuported_method_callback('addshape', *args, **kwargs)
 
     def bgpic(self, *args, **kwargs):
-        sys.stderr.write("Warning: Screen.bgpic() is not implemented.\n")
+        # sys.stderr.write("Warning: Screen.bgpic() is not implemented.\n")
         __unsuported_method_callback('bgpic', *args, **kwargs)
 
     def bye(self, *args, **kwargs):
