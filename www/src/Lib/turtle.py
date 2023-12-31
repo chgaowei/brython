@@ -729,6 +729,8 @@ class TNavigator:
         #
         # forward, backward, etc., call _goto directly with the distance
         # given by the user
+        x *= __turtle_distance_unit
+        y *= __turtle_distance_unit
         self._distance = abs(self._x - x) + abs(self._y - y)
         self._goto(x, y)
     setpos = goto
